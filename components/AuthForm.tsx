@@ -65,7 +65,7 @@ const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit
 
                   <FormControl>
                     {field.name === "universityCard" ? (
-                      <ImageUpload />
+                      <ImageUpload onFileChange={field.onChange} />
                     ) : (
                       <Input 
                         type={FIELD_TYPES[field.name as keyof typeof FIELD_TYPES]} 
