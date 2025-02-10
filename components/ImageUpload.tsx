@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
 import { IKImage, IKVideo, ImageKitProvider, IKUpload, ImageKitContext } from "imagekitio-next";
+import ImageKit from "imagekit";
 import config from "@/lib/config";
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { FilePath } from "tailwindcss/types/config";
+import { toast } from "@/hooks/use-toast";
 
 const { env: { imagekit: { publicKey, urlEndpoint } } } = config;
 
@@ -36,9 +37,23 @@ const ImageUpload = ({ onFileChange, }: {
   const ikUploadRef = useRef(null);
   const [file, setFile] = useState<{ filePath: string } | null>(null);
 
-  const onError = () => {};
+  const onError = (error: any) => {
+    console.log(error)
+
+    toast({
+      title: "Image upload failed",
+      description: "Your image could not be uploaded. please try again.",
+      variant: "destructive",
+    })
+  };
   const onSuccess = (res: any) => {
     setFile(res);
+    onFileChange(res.filePath);
+
+    toast({
+      title: "Image uploaded successfully",
+      description: `${res.filePath} uploaded successully!`,
+    })
   };
 
   return (
