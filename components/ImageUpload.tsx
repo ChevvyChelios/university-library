@@ -85,7 +85,7 @@ const ImageUpload = ({ onFileChange, }: {
           alt={file.filePath}
           path={file.filePath}
           width={500}
-          height={500}
+          height={300}
         />
       )}
     </ImageKitProvider>
